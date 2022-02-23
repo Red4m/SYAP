@@ -1,13 +1,32 @@
-def get_distance(first_point: list, second_point: list) -> float:
-    return ((first_point[0]-second_point[0])**2 + (first_point[1]-second_point[1])**2)**0.5
+import math
 
 
-max_distance = 0
-list_of_points = [[1, 3], [1, 5], [1, 7], [2, 8], [3, 7]]
-for num, i in enumerate(list_of_points):
-    for j in list_of_points[num+1:]:
-        distance = get_distance(i, j)
-        if distance > max_distance:
-            max_distance = distance
+def get_expression_result():
+    a = input("enter a: ")
+    x = input("enter x: ")
+    if a.isdigit() and x.isdigit():
+        a = float(a)
+        x = float(x)
+    else:
+        return {"error": "enter numbers , not str"}
 
-print(max_distance)
+    try:
+        result = -1/(5*x**3) * math.atan(2*a/x) + 1/(3*a*x**2) + 1/(3*x*a**2) + 1/(7*a**3) * math.log10(2*x**2 + a**2)
+        return {"result": result}
+    except ZeroDivisionError:
+        return {"error": "ups, enter valid data , not zero"}
+
+
+def main():
+    while True:
+        response = get_expression_result()
+        if response.get("error"):
+            print(response["error"])
+            continue
+        else:
+            print(response["result"])
+            break
+
+
+if __name__ == "__main__":
+    main()
